@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - CDR Ferragens</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      background:#f0f2f5;
+      font-family:'Inter',sans-serif;
+    }
+    .login-container {
+      background:#fff;
+      padding:20px 30px;
+      border-radius:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+      width:320px;
+    }
+    .login-container h2 {
+      margin-bottom:16px;
+      font-size:1.4rem;
+      color:#333;
+      text-align:center;
+    }
+    .login-container label {
+      display:block;
+      margin-bottom:6px;
+      font-size:0.9rem;
+      color:#555;
+    }
+    .login-container input {
+      width:100%;
+      padding:8px 10px;
+      margin-bottom:12px;
+      border:1px solid #ccc;
+      border-radius:4px;
+      font-size:0.9rem;
+    }
+    .login-container button {
+      width:100%;
+      padding:10px;
+      background:#4a90e2;
+      border:none;
+      color:#fff;
+      font-size:1rem;
+      border-radius:4px;
+      cursor:pointer;
+    }
+    .login-container button:hover {
+      background:#357abd;
+    }
+    .error {
+      color:#a94442;
+      font-size:0.85rem;
+      margin-bottom:12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login CDR Ferragens</h2>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="post" action="{{ url_for('login') }}">
+      <label for="username">Usuário</label>
+      <input type="text" id="username" name="username" required autofocus>
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</body>
+</html>

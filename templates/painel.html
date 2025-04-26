@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel CDR Ferragens</title>
+  <!-- Fonte Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f0f2f5; font-family: 'Inter', sans-serif; color: #333; padding: 20px; }
+    .header { display: flex; align-items: center; margin-bottom: 20px; }
+    #logo { height: 50px; margin-right: 12px; border-radius: 8px; }
+    .header h1 { font-size: 1.8rem; font-weight: 600; flex: none; }
+    .header .logout-form { margin-left: auto; }
+    .logout-form .btn-logout {
+      background: #e74c3c;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+    .logout-form .btn-logout i { margin-right: 6px; }
+    .logout-form .btn-logout:hover { background: #c0392b; }
+    .flash {
+      background: #ffe8e6;
+      border: 1px solid #f5c6c4;
+      color: #a94442;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .filtros select,
+    .filtros input[type='text'] {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 8px;
+      font-size: 0.95rem;
+      background: #fafafa;
+    }
+    .filtros .btn {
+      background: #4a90e2;
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+    }
+    .filtros .btn:hover { background: #357abd; }
+    form, .mensagem-bloco {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      margin-top: 20px;
+    }
+    .btn {
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn i { margin-right: 6px; }
+    .btn:hover { background: #357abd; }
+    .btn-icon {
+      background: #7ed321;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      margin-left: 6px;
+    }
+    .btn-icon i { margin-right: 6px; }
+    .btn-icon:hover { background: #5ea015; }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 6px 6px;
+      margin-top: 20px;
+    }
+    thead th {
+      background: #4a90e2;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      text-align: center;
+    }
+    tbody td {
+      background: #fff;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      vertical-align: middle;
+      text-align: center;
+    }
+    tbody tr { height: 48px; }
+    input.editavel-pequeno,
+    select {
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      background: #fafafa;
+      text-align: center;
+    }
+    input.editavel-grande,
+    textarea {
+      width: 100%;
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      background: #fafafa;
+    }
+    .mensagem-bloco h3 { margin-bottom: 10px; font-size: 1rem; }
+    #preview { margin-top: 6px; font-style: italic; color: #555; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img id="logo" src="{{ url_for('static', filename='logo.png') }}" alt="CDR Ferragens">
+    <h1><i class="fa fa-tools"></i> Painel CDR Ferragens</h1>
+    <form class="logout-form" action="{{ url_for('logout') }}" method="get">
+      <button type="submit" class="btn-logout">
+        <i class="fa fa-sign-out-alt"></i> Sair
+      </button>
+    </form>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="flash"><i class="fa fa-exclamation-circle"></i> {{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="get" action="/" class="filtros">
+    <select name="vendedor">
+      <option value="" {% if not sel_vendedor %}selected{% endif %}>(Todos vendedores)</option>
+      {% for v in vendedores %}<option value="{{v}}" {% if v==sel_vendedor %}selected{% endif %}>{{v}}</option>{% endfor %}
+    </select>
+    <select name="tipo_cliente">
+      <option value="" {% if not sel_tipo %}selected{% endif %}>(Todos tipos)</option>
+      {% for t in tipos %}<option value="{{t}}" {% if t==sel_tipo %}selected{% endif %}>{{t}}</option>{% endfor %}
+    </select>
+    <input type="text" name="busca_nome" value="{{ sel_busca }}" placeholder="Buscar por nome...">
+    <select name="tempo_envio">
+      <option value="" {% if not sel_tempo %}selected{% endif %}>(Período)</option>
+      <option value="1" {% if sel_tempo=='1' %}selected{% endif %}>Hoje</option>
+      <option value="3" {% if sel_tempo=='3' %}selected{% endif %}>3 dias</option>
+      <option value="7" {% if sel_tempo=='7' %}selected{% endif %}>7 dias</option>
+      <option value="30" {% if sel_tempo=='30' %}selected{% endif %}>30 dias</option>
+    </select>
+    <button type="submit" class="btn"><i class="fa fa-filter"></i> Filtrar</button>
+  </form>
+
+  <form method="post" action="/adicionar">
+    <div class="mensagem-bloco">
+      <h3><i class="fa fa-user-plus"></i> Adicionar Novo Cliente</h3>
+      <input type="text" name="nome" placeholder="Nome do cliente" class="editavel-pequeno">
+      <input type="text" name="numero" placeholder="55XXXXXXXXXXX" class="editavel-pequeno">
+      <select name="vendedor">
+        {% for v in vendedores %}<option value="{{v}}">{{v}}</option>{% endfor %}
+      </select>
+      <select name="tipo_cliente">
+        {% for t in tipos %}<option value="{{t}}">{{t}}</option>{% endfor %}
+      </select>
+      <button type="submit" class="btn"><i class="fa fa-plus-circle"></i> Adicionar</button>
+    </div>
+  </form>
+
+  <form method="post" action="/enviar_tudo">
+    <table>
+      <thead>
+        <tr>
+          <th>Selecionar</th><th>Nome</th><th>Número</th><th>Vendedor</th><th>Tipo Cliente</th><th>Mensagem 1</th><th>Último Envio</th><th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for linha in dados %}
+        <tr>
+          <td><input type="checkbox" name="selecao_{{ loop.index0 }}"></td>
+          <td><input type="text" name="nome_{{ loop.index0 }}" value="{{ linha[0] }}" class="editavel-pequeno"></td>
+          <td><input type="text" name="numero_{{ loop.index0 }}" value="{{ linha[1] }}" class="editavel-pequeno"></td>
+          <td>
+            <select name="vendedor_{{ loop.index0 }}">
+              {% for v in vendedores %}<option value="{{v}}" {% if v==linha[2] %}selected{% endif %}>{{v}}</option>{% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name="tipo_cliente_{{ loop.index0 }}">
+              {% for t in tipos %}<option value="{{t}}" {% if t==linha[6] %}selected{% endif %}>{{t}}</option>{% endfor %}
+            </select>
+          </td>
+          <td style="display:flex;align-items:center;">
+            <input id="mensagem_{{ loop.index0 }}" name="mensagem_{{ loop.index0 }}" value="{{ linha[7] }}" class="editavel-grande">
+            <button type="button" class="btn-icon" onclick="gerarParaLinha({{ loop.index0 }})"><i class="fa fa-magic"></i></button>
+          </td>
+          <td>{{ linha[5] }}</td>
+          <td><button formaction="/salvar_edicoes" formmethod="post" class="btn-icon"><i class="fa fa-save"></i></button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="mensagem-bloco">
+      <h3><i class="fa fa-pencil-alt"></i> Mensagem 1</h3>
+      <label>Início:<br><input type="text" id="tpl_inicio" class="editavel-grande" placeholder="Ex: Olá"></label><br><br>
+      <label><input type="checkbox" id="tpl_useNome"> Incluir nome</label><br><br>
+      <label>Meio:<br><input type="text" id="tpl_meio" class="editavel-grande" placeholder="Ex: , como você está? Aqui é"></label><br><br>
+      <label><input type="checkbox" id="tpl_useVend"> Incluir vendedor</label><br><br>
+      <label>Fim:<br><input type="text" id="tpl_fim" class="editavel-grande" placeholder="Ex: , da CDR Ferragens."></label>
+      <p id="preview">(Preview: clique no ícone mágico)</p>
+    </div>
+
+    <div class="mensagem-bloco">
+      <h3><i class="fa fa-robot"></i> Mensagem 2</h3>
+      <textarea name="contexto2" rows="4" class="editavel-grande" placeholder="Digite aqui o contexto da promoção"></textarea>
+    </div>
+
+    <button type="submit" class="btn" style="margin-top:12px;">
+      <i class="fa fa-paper-plane"></i> Enviar Mensagens
+    </button>
+  </form>
+
+  <script>
+    function gerarParaLinha(idx) {
+      const inicio  = document.getElementById('tpl_inicio').value || '';
+      const meio    = document.getElementById('tpl_meio').value    || '';
+      const fim     = document.getElementById('tpl_fim').value     || '';
+      const useNome = document.getElementById('tpl_useNome').checked;
+      const useVend = document.getElementById('tpl_useVend').checked;
+      const nome    = document.querySelector(`input[name='nome_${idx}']`).value;
+      const vend    = document.querySelector(`select[name='vendedor_${idx}']`).value;
+      let msg = inicio;
+      if (useNome) msg += ' ' + nome;
+      msg += meio;
+      if (useVend) msg += ' ' + vend;
+      msg += fim;
+      document.getElementById(`mensagem_${idx}`).value = msg;
+      document.getElementById('preview').innerText = msg;
+    }
+    // formata número automaticamente
+    const numIn = document.querySelector("input[name='numero']");
+    if (numIn) {
+      numIn.addEventListener('input', () => {
+        let v = numIn.value.replace(/\D/g, '');
+        if (!v.startsWith('55')) v = '55' + v.replace(/^55*/, '');
+        numIn.value = v.slice(0,13);
+      });
+    }
+  </script>
+
+</body>
+</html>

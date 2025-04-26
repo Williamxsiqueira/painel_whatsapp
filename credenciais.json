@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "watts-loja",
+  "private_key_id": "2b3f8afd18e3f2a7a437844f50f28b4fb09a849d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCnWcmzGsGCBIN7\nrKjb+QbFXYKMHRXhaJ3QCFWfq1XdUiJTThZfyvTjQoznltwX9l5PqNLkzOgnFQBx\nhx7yy7+pcGjKhTDAnn7MSyKJAHEyyD3IY2L+3SHc4DQrJ1NaSKLfGObWMMl/K0ld\n7FIXisCLM+FOftSIBunkIUNsiz2IJE5ZbsEFeSEvrMl/9+3hIy1JjQPDoUlXM5e+\nU2knC7724MJD5SnrKWtViUK5Ioe6+4fa65A3u2shfG3jTI1mTndrWLhbn09Figoh\nIbSm4k+ztM177fllTQkKG6Kk5reCOL0ITzbS1cnSyZrJ5VJ+BiiHmlWIbAXjAucv\nU/6jHs47AgMBAAECggEABSs0m8e4RqlCsbJarCH2umgnIj0QZ3FhP8Mkzd/aBjzF\nWvhUSuohrSvpiTTzdaQCNAioAYbDUYMIYU6bP0QuwRomimwZs4v8U5gAfZBvbpzu\nV5RGQvlBKf7HbbZzEHH3jIIgOGkHrYSrPpo6y4euvGiXorfacvHFDerpwl5R7LSm\n2YS+H6xogGjL0rILBjkl54r1OlfyYk3JXFkvSSI+uESguXvOrpS1R6PdKVwvg/Gm\noj8xNo+Qy2BSaGvuIVD/Ho0qNmnWxRXvDe7jlmn0uWpmeqV6jGtDsvfRddJ1BeU6\nBaWENfj1Z9wPCgB8GBHsEbdb3AavOIGwc8zfc/cVxQKBgQDkHfHkpaaN8Hh6YZMR\nsH2cYKKIYVr2vYLztZpA3X01oVDJJ/lZWyFekh4OGZtFlY2ajNmbtxkkRbywcQDu\nAiF5c86gR7MRv6hdt8UatB/nhTlxMoVQJQZ4OY/uMSCIsqmLi9QYSWS8i7YVqaM+\numLueFrfjmjGgoJnp4qPM8rBlQKBgQC7zmTlw9DITcYvm3MKEMvUJcmQqAB12rIu\nBNFm5ItJrNN9JxFVtZuDM8q3g6O689o9gEJgtZG6L9vtqic2mWzpHTaRdbM4c9rI\nvKvwT7CJL5VSVOxQkKwQwOycyMYODVn1iJilvJP5NnMf20krJ5HBjnzVDkjm/b0l\nhqZOrZb8jwKBgFsJAEHJQcCfWNUuH20Ny/MeNX7Lq2uQkbQEozyDp7ZBXGYKh937\nGkQNd+UUnvyUBGDLGQSle2kYU4bucfqJ6yX261zXgETzAZP1BLn1bE4Owq/EA6PK\nQtyzzBa4kE09T6Aa+1d94q/D6bSXcEhWRaj5avqQcIvYBYasPAWOG7pJAoGAbfU6\nx/ftLsmyhr8qDLOm05BIQqTKmDYyapUxkV+wWbORo84S7S7GXXwebXHqlBQgLDAD\nLSJBr1REHROpn+MWjCopf+L8ysmySCOHO808nCW69Jh6P/VkeO6r2mQG6cVRbVvL\nnAYcUSZbI0S9w0GIql3losyZTH01mFoM1zX1l+sCgYEA3lI2GQQlBIxgn3Uvsvui\nFlyFpeLe1S19R0pYV8n4Ziqhd1Nub2hbOkOf6yCrinX61hwUId41r8E1IhxnZOBN\nhMkrVrzfuMNgVwDYSoyE9EFvSgEzwDrxgRnbH7U08fRPXb92dsOSs0v9nw41n/im\nNoxUvmuhG/sTu7OtRQrR3Uc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "painel-cdr@watts-loja.iam.gserviceaccount.com",
+  "client_id": "114972308700468954424",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/painel-cdr%40watts-loja.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
