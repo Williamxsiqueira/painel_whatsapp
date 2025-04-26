@@ -1,7 +1,8 @@
+from atendimento import bp_atendimento
 import os
 import logging
 from datetime import datetime, timedelta
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, session
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread.exceptions import SpreadsheetNotFound, WorksheetNotFound
@@ -13,6 +14,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
 app = Flask(__name__)
+app.secret_key = "lfm_84014243"
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'altere_para_um_segredo_forte')
 app.config['SESSION_PERMANENT'] = False
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)
@@ -25,11 +27,13 @@ scope = [
 creds = ServiceAccountCredentials.from_json_keyfile_name(
     "credenciais.json", scope)
 client = gspread.authorize(creds)
-
 wb = client.open("whatsapp_contatos")
 contatos_sheet = wb.worksheet("Página1")
 config_sheet = wb.worksheet("configuracoes")
 usuarios_sheet = wb.worksheet("usuarios")
+
+# --- Registro do Blueprint de Atendimento ---
+app.register_blueprint(bp_atendimento)
 
 # Planilha separada de promoções (arquivo inteiro)
 try:
